@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-
+// import styled from 'styled-components'
 import logo from './logo.svg'
 import './App.css'
+import AuctionData from '../components/auctionData'
 
 class App extends Component {
   state = {
@@ -10,8 +10,13 @@ class App extends Component {
   }
 
   handleRequest = async () => {
-    const res = await axios.get('/getData')
-    console.log(res.data)
+    try {
+      const res = await fetch('/api/getData')
+      const data = await res.json()
+      this.setState({ data: data.data })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   render () {
@@ -20,11 +25,15 @@ class App extends Component {
       <div className='App'>
         <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
         </header>
         <p className='App-intro'>
           <button onClick={this.handleRequest}>Hit for request</button>
         </p>
+
+        <AuctionData
+          realms={this.state.data.realms}
+          auctions={this.state.data.auctions}
+        />
       </div>
     )
   }
