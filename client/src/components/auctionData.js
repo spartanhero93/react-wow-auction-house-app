@@ -9,16 +9,24 @@ class AuctionData extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.realms !== nextProps.realms) {
-      const realm = nextProps.realms[0], auctions = nextProps.auctions
+      const realm = nextProps.realms[0]
+      const fullArr = nextProps.auctions
+      console.log('next props arr length')
+      console.log(fullArr.length)
 
-      this.setState({ realm: realm.name, dataSet: auctions.splice(3) })
+      const percentOfFullArr = fullArr.splice(fullArr.length / 2)
+      console.log('percentOfFill arr length')
+      console.log(percentOfFullArr.length)
+      this.setState({ realm: realm.name, dataSet: percentOfFullArr })
     }
   }
 
   render () {
-    console.log(this.state.data)
+    console.log('state.arr length')
+    console.log(this.state.dataSet.length)
     return (
       <Wrapper>
+        <h5>{window.innerWidth}</h5>
         <h4>Server: {this.state.realm}</h4>
         <Table>
           <tbody>
@@ -32,6 +40,21 @@ class AuctionData extends Component {
               <th>Time Left</th>
               <th>Sun</th>
             </tr>
+            {/* {this.state.dataSet.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <th>Player {index}</th>
+                  <td>{item.owner}</td>
+                  <td>{item.ownerRealm}</td>
+                  <td>{item.item}</td>
+                  <td>{item.bid}</td>
+                  <td>{item.buyout}</td>
+                  <td>{item.timeLeft}</td>
+                  <td>&nbsp;</td>
+                </tr>
+              )
+            })} */}
+
             <tr>
               <th>Player {'1'}</th>
               <td>Legend27</td>
@@ -42,36 +65,7 @@ class AuctionData extends Component {
               <td>{'very long'}</td>
               <td>&nbsp;</td>
             </tr>
-            <tr>
-              <th>Player {'2'}</th>
-              <td>Legend27</td>
-              <td>DarkSpear</td>
-              <td>{'4165344561'}</td>
-              <td>{'12344890'}</td>
-              <td>{'12343870'}</td>
-              <td>{'very long'}</td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-              <th>3rd period</th>
-              <td>&nbsp;</td>
-              <td>German</td>
-              <td>&nbsp;</td>
-              <td>German</td>
-              <td>Dutch</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-              <th>4th period</th>
-              <td>&nbsp;</td>
-              <td>English</td>
-              <td>&nbsp;</td>
-              <td>English</td>
-              <td>Dutch</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
+
           </tbody>
         </Table>
       </Wrapper>
